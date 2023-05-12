@@ -6,7 +6,7 @@
 | numpy          |  1.17.2      |
 | pandas         |  0.25.1      |
 | tensorboardX   |  1.8         |
-| ffmpeg	 |  3.4.2	|
+| ffmpeg	     |  3.4.2	    |
 
 
 ## Dataset Prep

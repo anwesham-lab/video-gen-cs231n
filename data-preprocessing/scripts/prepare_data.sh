@@ -7,6 +7,6 @@ ANNO_PATH=$DATASET_PATH/annotations
 
 python3 utils/classify_video.py $ORIGIN_PATH $CLASSIFY_PATH 
 python3 utils/ucf_jpeg.py $CLASSIFY_PATH $VIDEO_PATH
-python3 utils/n_frames_ucf101_hmdb51.py $VIDEO_PATH
+python3 utils/n_frames.py $VIDEO_PATH
 
 rm -rf $ORIGIN_PATH $CLASSIFY_PATH
