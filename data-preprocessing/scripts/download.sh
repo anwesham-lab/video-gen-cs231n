@@ -1,0 +1,9 @@
+ROOT_PATH=data
+DATASET_PATH=$ROOT_PATH/UCF101
+ORIGIN_PATH=$DATASET_PATH/UCF101
+CLASSIFY_PATH=$DATASET_PATH/videos_classified
+VIDEO_PATH=$DATASET_PATH/videos_jpeg
+ANNO_PATH=$DATASET_PATH/annotations
+mkdir $DATASET_PATH
+scripts/download_dataset.sh $DATASET_PATH
+scripts/download_annotations.sh $DATASET_PATH
