@@ -63,7 +63,6 @@ def sample_k_frames(data, video_length, k_sample):
     return data[:, srt, :, :, :]
 
 def write_log(writer, log_str, step, ds_loss_real, ds_loss_fake, ds_loss, dt_loss_real, dt_loss_fake, dt_loss, g_loss):
-
     writer.add_scalar('data/ds_loss_real', ds_loss_real.item(), step)
     writer.add_scalar('data/ds_loss_fake', ds_loss_fake.item(), step)
     writer.add_scalar('data/ds_loss', ds_loss.item(), step)
@@ -71,7 +70,6 @@ def write_log(writer, log_str, step, ds_loss_real, ds_loss_fake, ds_loss, dt_los
     writer.add_scalar('data/dt_loss_fake', dt_loss_fake.item(), step)
     writer.add_scalar('data/dt_loss', dt_loss.item(), step)
     writer.add_scalar('data/g_loss_fake', g_loss.item(), step)
-
     writer.add_text('logs', log_str, step)
 
 def vid_downsample(data):
@@ -81,3 +79,18 @@ def vid_downsample(data):
     _, _, H, W = x.size()
     x = x.view(B, T, C, H, W).permute(0, 2, 1, 3, 4).contiguous()
     return x
+
+def build_tensorboard(self):
+    from tensorboardX import SummaryWriter
+    # from logger import Logger
+    # self.logger = Logger(self.log_path)
+    self.writer = SummaryWriter(log_dir=self.log_path)
+
+def reset_grad(self):
+    self.ds_optimizer.zero_grad()
+    self.dt_optimizer.zero_grad()
+    self.g_optimizer.zero_grad()
+
+def save_sample(self, data_iter):
+    real_images, _ = next(data_iter)
+    save_image(denorm(real_images), os.path.join(self.sample_path, 'real.png'))
