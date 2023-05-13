@@ -10,10 +10,12 @@
 
 
 ## Dataset Prep
-'''
-brew install ffmpeg #or sudo apt install ffmpeg
+```
+cd preprocessing
+brew install ffmpeg #or sudo apt install ffmpeg or sudo apititude ffmpeg
 chmod u+x scripts/*.sh
 scripts/download_ucf.sh data/UCF101
-scripts/download_annotations.sh data/UCF101 #you may have to run commands one at a time for this one, issues with confirming the link can come up
+# you may have to run commands one at a time for annotations, issues with confirming the link can come up
+scripts/download_annotations.sh data/UCF101 #github has these pushed, don't rerun
 scripts/prepare_data.sh 
-'''
+```
