@@ -92,9 +92,9 @@ class Trainer(object):
         grad_full = torch.autograd.grad(
             outputs=out,
             inputs=interpolated,
-            grad_outputs=torch.ones(out.size()).cuda()
-            retain_graph=True
-            create_graph=True
+            grad_outputs=torch.ones(out.size()).cuda(),
+            retain_graph=True,
+            create_graph=True,
             only_inputs=True
         )
         grad = grad_full[0]
