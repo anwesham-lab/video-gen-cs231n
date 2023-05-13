@@ -266,3 +266,89 @@ class RandomHorizontalFlip(object):
 
     def randomize_parameters(self):
         self.p = random.random()
+
+class MultiScaleCornerCrop(object):
+    """Crop the given PIL.Image to a randomly selected size.
+    A crop of size is selected from scales of the original size.
+    A position of cropping is randomly selected from 4 corners and 1 center.
+    This crop is finally resized to the given size.
+
+    Args:
+        scales (list or tuple): Cropping scales of the original size.
+        size (int): Size of the smaller edge.
+        interpolation (int, optional): Interpolation method for resizing. Default is PIL.Image.BILINEAR.
+        crop_positions (list or tuple, optional): List of crop positions. Valid values are 'c' (center), 'tl' (top-left),
+            'tr' (top-right), 'bl' (bottom-left), 'br' (bottom-right). Defaults to ['c', 'tl', 'tr', 'bl', 'br'].
+    """
+
+    def __init__(self, scales, size, interpolation=Image.BILINEAR, crop_positions=['c', 'tl', 'tr', 'bl', 'br']):
+        self.scales = scales
+        self.size = size
+        self.interpolation = interpolation
+        self.crop_positions = crop_positions
+
+    def __call__(self, img):
+        # Calculate the minimum length of the image size
+        min_length = min(img.size[0], img.size[1])
+
+        # Randomly select a scale from the available scales
+        self.scale = random.choice(self.scales)
+
+        # Calculate the crop size based on the scale
+        crop_size = int(min_length * self.scale)
+
+        image_width = img.size[0]
+        image_height = img.size[1]
+
+        # Randomly select a crop position from the available crop positions
+        self.crop_position = random.choice(self.crop_positions)
+
+        if self.crop_position == 'c':
+            # Center crop
+            center_x = image_width // 2
+            center_y = image_height // 2
+            box_half = crop_size // 2
+            x1 = center_x - box_half
+            y1 = center_y - box_half
+            x2 = center_x + box_half
+            y2 = center_y + box_half
+        elif self.crop_position == 'tl':
+            # Top-left crop
+            x1 = 0
+            y1 = 0
+            x2 = crop_size
+            y2 = crop_size
+        elif self.crop_position == 'tr':
+            # Top-right crop
+            x1 = image_width - crop_size
+            y1 = 0
+            x2 = image_width
+            y2 = crop_size
+        elif self.crop_position == 'bl':
+            # Bottom-left crop
+            x1 = 0
+            y1 = image_height - crop_size
+            x2 = crop_size
+            y2 = image_height
+        elif self.crop_position == 'br':
+            # Bottom-right crop
+            x1 = image_width - crop_size
+            y1 = image_height - crop_size
+            x2 = image_width
+            y2 = image_height
+
+        # Perform the crop operation
+        img = img.crop((x1, y1, x2, y2))
+
+        # Resize the cropped image to the desired size
+        img = img.resize((self.size, self.size), self.interpolation)
+
+        return img
+    
+    def randomize_parameters(self):
+        """
+        Randomly selects the scale and crop position during each transformation.
+        """
+        self.scale = random.choice(self.scales)
+        self.crop_position = random.choice(self.crop_positions)
+
