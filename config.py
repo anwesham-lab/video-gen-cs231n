@@ -64,9 +64,9 @@ def get_parameters():
     parser.add_argument('--no_mean_norm', action='store_true', default=True)
     parser.add_argument('--std_norm', action='store_true', default=False)
     parser.add_argument('--mean_dataset', type=str, default='activitynet')
-    parser.add_argument('--root_path', type=str, default='/tmp4/potter/UCF101')
+    parser.add_argument('--root_path', type=str, default='preprocessing/data/UCF101')
     parser.add_argument('--video_path', type=str, default='videos_jpeg')
-    parser.add_argument('--annotation_path', type=str, default='annotation/ucf101_01.json')
+    parser.add_argument('--annotation_path', type=str, default='annotations/ucf101_01.json')
     parser.add_argument('--train_crop', type=str, default='corner') #corner | random | center
     parser.add_argument('--sample_size', type=int, default=64)
 
