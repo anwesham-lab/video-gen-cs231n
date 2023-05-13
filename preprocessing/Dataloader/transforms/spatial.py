@@ -92,6 +92,9 @@ class ToTensor(object):
             img = img
         
         return img
+    
+    def randomize_parameters(self):
+        pass
 
 class Normalize(object):
     """Normalize a tensor image with mean and standard deviation.
@@ -121,6 +124,9 @@ class Normalize(object):
             t = (t - m) / s
             tensor_list.append(t)
         return torch.stack(tensor_list)
+    
+    def randomize_parameters(self):
+        pass
 
 class Scale(object):
     """Rescale the input PIL.Image to the given size.
