@@ -1,5 +1,4 @@
-from ucf101 import UCF101
-
+from preprocessing.Dataloader.ucf101 import UCF101
 
 def get_training_set(opt, spatial_transform, temporal_transform,
                      target_transform):
