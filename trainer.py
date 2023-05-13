@@ -1,7 +1,7 @@
 import time
 import datetime
 import torch
-import torch.nn as NN
+import torch.nn as nn
 from torch.optim.lr_scheduler import ExponentialLR, ReduceLROnPlateau, StepLR, MultiStepLR
 from torchvision.utils import save_image, make_grid
 from utils import *
