@@ -108,6 +108,7 @@ def main(config):
         else:
             trainer = None
 
+        torch.cuda.empty_cache()
         trainer.train()
     # else:
     #     tester = Tester(val_loader, config)
